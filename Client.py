@@ -5,7 +5,7 @@ import random
 
 HOST = '127.0.0.1'  # Server's IP address (localhost for testing)
 PORT = 9999         # Port to connect to
-SHARED_KEY = random.randint(1, 26)  # Random shared key for encryption and decryption
+SHARED_KEY = 11
 
 def encrypt(message, key):
     encrypted_message = ""
