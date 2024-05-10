@@ -1,16 +1,13 @@
 import tkinter as tk
 
-def shift_char(char, key):
-    if char.isalpha():
-        base = ord('A') if char.isupper() else ord('a')
-        return chr(((ord(char) - base + key) % 26) + base)
-    return char
+def cipher(message, key):
+    return ''.join(chr(((ord(char) - ord('A' if char.isupper() else 'a') + key) % 26) + ord('A' if char.isupper() else 'a')) if char.isalpha() else char for char in message)
 
 def encrypt(message, key):
-    return ''.join(shift_char(char, key) for char in message)
+    return cipher(message, key)
 
 def decrypt(message, key):
-    return encrypt(message, -key)
+    return cipher(message, -key)
 
 
 def user1_encrypt_message():
