@@ -1,36 +1,17 @@
 import tkinter as tk
 
+def shift_char(char, key):
+    if char.isalpha():
+        base = ord('A') if char.isupper() else ord('a')
+        return chr(((ord(char) - base + key) % 26) + base)
+    return char
+
 def encrypt(message, key):
-    encrypted_message = ""
-    m = 26
-    for char in message:
-        if char.isalpha():
-            if char.isupper():
-                p = ord(char) - ord('A')
-                encrypted_char = chr((p + key) % m + ord('A'))
-            else:
-                p = ord(char) - ord('a')
-                encrypted_char = chr((p + key) % m + ord('a'))
-            encrypted_message += encrypted_char
-        else:
-            encrypted_message += char
-    return encrypted_message
+    return ''.join(shift_char(char, key) for char in message)
 
 def decrypt(message, key):
-    decrypted_message = ""
-    m = 26
-    for char in message:
-        if char.isalpha():
-            if char.isupper():
-                p = ord(char) - ord('A')
-                decrypted_char = chr((p - key) % m + ord('A'))
-            else:
-                p = ord(char) - ord('a')
-                decrypted_char = chr((p - key) % m + ord('a'))
-            decrypted_message += decrypted_char
-        else:
-            decrypted_message += char
-    return decrypted_message
+    return encrypt(message, -key)
+
 
 def user1_encrypt_message():
     message = user1_input_text.get("1.0", tk.END).strip()
