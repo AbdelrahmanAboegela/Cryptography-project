@@ -1,10 +1,10 @@
 import socket
 import threading
 
-HOST = '127.0.0.1'  # Server's IP address (localhost for testing)
-PORT = 9999         # Port to listen on
+HOST = '127.0.0.1'  
+PORT = 9999         
 
-clients = []  # List to keep track of connected clients
+clients = []  
 
 def handle_client_connection(client_socket):
     try:
@@ -12,10 +12,8 @@ def handle_client_connection(client_socket):
             data = client_socket.recv(1024).decode('utf-8')
             if not data:
                 break
-            # Broadcast received message to all other clients
             broadcast(data, client_socket)
     except ConnectionResetError:
-        # Handle client disconnect
         clients.remove(client_socket)
         client_socket.close()
 

@@ -2,8 +2,8 @@ import socket
 import tkinter as tk
 import threading
 
-HOST = '127.0.0.1'  # Server's IP address (localhost for testing)
-PORT = 9999         # Port to connect to
+HOST = '127.0.0.1'  
+PORT = 9999         
 
 class ChatClient:
     def __init__(self, root):
@@ -11,13 +11,10 @@ class ChatClient:
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.current_key = None
 
-        # GUI Setup
         self.setup_gui()
 
-        # Connect to server
         self.connect_to_server()
 
-        # Start receiving messages in a separate thread
         self.receive_thread = threading.Thread(target=self.receive_messages)
         self.receive_thread.daemon = True
         self.receive_thread.start()
@@ -26,7 +23,6 @@ class ChatClient:
         self.root.title("Secured Chat Room")
         self.root.configure(bg='lavender')
 
-        # Key Input Area
         self.key_label = tk.Label(self.root, text="Enter Encryption/Decryption Key:", bg='lavender')
         self.key_label.pack(padx=10, pady=(10, 0))
 
@@ -40,7 +36,6 @@ class ChatClient:
         self.modify_key_button.pack(padx=10, pady=5)
         self.modify_key_button.config(state=tk.DISABLED)
 
-        # Encrypted Message Display Area
         self.encrypted_textbox_label = tk.Label(self.root, text="Encrypted Message:", bg='lavender')
         self.encrypted_textbox_label.pack(padx=10, pady=(10, 0))
 
@@ -48,7 +43,6 @@ class ChatClient:
         self.encrypted_textbox.pack(padx=10, pady=5)
         self.encrypted_textbox.config(state=tk.DISABLED)
 
-        # Decrypted Message Display Area
         self.decrypted_textbox_label = tk.Label(self.root, text="Decrypted Message:", bg='lavender')
         self.decrypted_textbox_label.pack(padx=10, pady=(10, 0))
 
@@ -56,11 +50,9 @@ class ChatClient:
         self.decrypted_textbox.pack(padx=10, pady=5)
         self.decrypted_textbox.config(state=tk.DISABLED)
 
-        # Input Area
         self.input_text = tk.Entry(self.root, width=50)
         self.input_text.pack(padx=10, pady=10)
 
-        # Send Button
         self.send_button = tk.Button(self.root, text="Send", command=self.send_message, bg='lightblue')
         self.send_button.pack(padx=10, pady=10)
 
