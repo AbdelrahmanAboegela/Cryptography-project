@@ -114,10 +114,11 @@ class ChatClient:
                 break
 
     def encrypt(self, message):
-        return ''.join(chr(((ord(char) - ord('A' if char.isupper() else 'a') + self.current_key) % 26) + ord('A' if char.isupper() else 'a')) if char.isalpha() else char for char in message)
-
+        return ''.join(chr((ord(char) + self.current_key) % 127 if 32 <= ord(char) <= 126 else ord(char)) for char in message)
     def decrypt(self, message):
-        return ''.join(chr(((ord(char) - ord('A' if char.isupper() else 'a') - self.current_key) % 26) + ord('A' if char.isupper() else 'a')) if char.isalpha() else char for char in message)
+        return ''.join(chr((ord(char) - self.current_key) % 127 if 32 <= ord(char) <= 126 else ord(char)) for char in message)
+
+
 
     def update_textboxes(self, decrypted_message, encrypted_message):
         self.decrypted_textbox.config(state=tk.NORMAL)
